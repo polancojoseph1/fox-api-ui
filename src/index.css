@@ -24,3 +24,27 @@ code {
 .image {
   margin: 20px;
 }
+
+.modal-container {
+  background-color: rgba(24, 6, 6, 0.8);
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: whitesmoke;
+  height: 50%;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.modal-image {
+  height: 100% !important;
+  width: 100% !important;
+}
