@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
 function App() {
 
@@ -9,16 +10,16 @@ function App() {
   }
 
   function Main() {
-    let rows = new Array(6).fill(<Row />);
+    let rows = new Array(6).fill(<Row />).map((e, i) => <Row count={ i }/>);
     return (<div className="main">
       { rows }
     </div>)
   }
   
   function Row(props) {
-    let [set, setSet] = useState(new Set());
-  
-    let images = new Array(3).fill(<Image set={ set }/>)
+    let { count } = props;
+
+    let images = new Array(3).fill(<Image />).map((e, i) => <Image count={(i + 1) + (count * 3)} />);
     
     return (<div className="row">
       {images}
@@ -28,10 +29,19 @@ function App() {
   function Image(props) {
     let [url, setUrl] = useState("");
 
+    let { count } = props;
+    
     useEffect(() => {
-      fetch("https://randomfox.ca/floof/")
-        .then(res => res.json())
-      .then(data => setUrl(data ? data.image : null))
+      if (localStorage.getItem(count)) {
+        setUrl(localStorage.getItem(count));
+      } else {
+        fetch("https://randomfox.ca/floof/")
+                .then(res => res.json())
+                .then(data => {
+                  localStorage.setItem(count, data.image);
+                  setUrl(data ? data.image : null);
+                })
+      }
     }, [])
 
     const setModalImage = () => {
@@ -39,7 +49,7 @@ function App() {
     }
   
     return (<div onClick={setModalImage} className="image">
-      <img src={ url } width="200" height="200"/>
+      <img className="fox-image" src={ url } width="200" height="200"/>
     </div>)
   }
 

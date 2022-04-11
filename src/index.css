@@ -19,6 +19,7 @@ code {
 
 .main {
   display: flex;
+  overflow: scroll;
 }
 
 .image {
@@ -45,6 +46,12 @@ code {
 }
 
 .modal-image {
+  object-fit: fill;
   height: 100% !important;
   width: 100% !important;
+}
+
+.fox-image {
+  cursor: pointer;
+  object-fit: fill;
 }
